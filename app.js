@@ -109,8 +109,9 @@ app.get("/test-login", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hi, I am root");
+  res.redirect("/listings");
 });
+
 
 // app.all("*",(req,res,next)=>{
 //   next (new ExpressError(404,"Page Not Found!"));
