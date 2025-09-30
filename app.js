@@ -7,9 +7,6 @@
 require('dotenv').config();
 console.log("SECRET:", process.env.SECRET);
 
-
-
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -50,7 +47,6 @@ const sessionOptions = {
   }
 };
 
-
 app.use(session(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
@@ -60,10 +56,8 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-
-
 app.use((req, res, next) => {
+  res.locals.currUser = req.user || null;  
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser=req.user;
