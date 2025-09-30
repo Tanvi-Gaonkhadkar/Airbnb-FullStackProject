@@ -5,7 +5,8 @@
 
 
 require('dotenv').config();
-console.log("process.env.SECRET");
+console.log("SECRET:", process.env.SECRET);
+
 
 
 
@@ -33,7 +34,7 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600,
 });
 
-store.on("error",()=>{
+store.on("error",(err)=>{
   console.log("ERROR in MONGO SESSION STORE",err);
 });
 
@@ -127,6 +128,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("listings/error", { err });
 });
 
-app.listen(8080, () => {
-  console.log("server is listening to port 8080");
+const PORT = process.env.PORT || 8080;   // use Render's port
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(` Server is running on port ${PORT}`);
 });
+
